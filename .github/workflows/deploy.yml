@@ -9,8 +9,7 @@ jobs:
   deploy:
 
     runs-on: ubuntu-latest
-
-
+#this is testing to sent docker imae to docker hub
     steps:
     - uses: actions/checkout@v4
     - run: docker build . -t 51824119/next-js-app
