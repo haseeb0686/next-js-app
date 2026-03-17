@@ -23,3 +23,15 @@ jobs:
 
       - name: Push Image
         run: docker push 51824119/next-js-app:latest
+
+      - name: Deploy to Server
+        uses: appleboy/ssh-action@v0.1.5
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          script: |
+            docker pull 51824119/next-js-app:latest
+            docker stop next-js-app || true
+            docker rm next-js-app || true
+            docker run -d -p 3000:3000 --name next-js-app 51824119/next-js-app:latest  
